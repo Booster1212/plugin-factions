@@ -11,7 +11,7 @@ import { deepCloneObject } from '../../../../shared/utility/deepCopy.js';
 import { LOCALE_KEYS } from '@AthenaShared/locale/languages/keys.js';
 import { FactionPlayerFuncs } from './playerFuncs.js';
 import { LocaleController } from '@AthenaShared/locale/locale.js';
-import { FACTION_EVENTS } from '@AthenaPlugins/athena-plugin-factions/shared/factionEvents.js';
+import { FACTION_EVENTS } from '@AthenaPlugins/plugin-factions/shared/factionEvents.js';
 import { InventoryView } from '@AthenaPlugins/core-inventory/server/src/view.js';
 
 export const FACTION_COLLECTION = 'factions';

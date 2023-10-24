@@ -1,4 +1,4 @@
-import { Faction, FactionCharacter, FactionRank, RankPermissions } from '../../shared/interfaces';
+import { Faction, FactionCharacter, FactionRank, RankPermissions } from '../../shared/interfaces.js';
 
 export class FactionParser {
     /**
@@ -177,12 +177,12 @@ export class FactionParser {
         againstUserRank: FactionRank,
         hasOwnership = false,
     ): Partial<RankPermissions> {
-        if(hasOwnership) {
+        if (hasOwnership) {
             return {
                 manageRanks: true,
                 manageMembers: true,
-                kickMembers: true
-            }
+                kickMembers: true,
+            };
         }
 
         if (actingUserRank.uid === againstUserRank.uid && !hasOwnership) {

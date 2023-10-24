@@ -8,8 +8,8 @@ import { FactionHandler } from './handler.js';
 import { Faction, FactionCharacter, FactionRank, RankPermissions } from '../../shared/interfaces.js';
 import { FACTION_EVENTS } from '../../shared/factionEvents.js';
 import { OwnedVehicle } from '@AthenaShared/interfaces/vehicleOwned.js';
-import {FactionPlayerFuncs} from "@AthenaPlugins/athena-plugin-factions/server/src/playerFuncs.js";
-import { AdminCommandPermissions } from '@AthenaPlugins/athena-plugin-factions/shared/config.js';
+import { FactionPlayerFuncs } from '@AthenaPlugins/plugin-factions/server/src/playerFuncs.js';
+import { AdminCommandPermissions } from '@AthenaPlugins/plugin-factions/shared/config.js';
 import { storage } from '@AthenaServer/systems/index.js';
 
 let hasInitialized = false;
@@ -90,7 +90,11 @@ export class FactionFuncs {
      */
     static updateMembers(faction: Faction) {
         const memberIdentifiers = Object.keys(faction.members);
-        const members = alt.Player.all.filter((p) => (p && p.valid && p && memberIdentifiers.includes(Athena.document.character.get(p)?._id)) || this.isAdmin(p) );
+        const members = alt.Player.all.filter(
+            (p) =>
+                (p && p.valid && p && memberIdentifiers.includes(Athena.document.character.get(p)?._id)) ||
+                this.isAdmin(p),
+        );
 
         alt.emitClient(members, FACTION_EVENTS.PROTOCOL.REFRESH, faction);
     }
@@ -121,7 +125,7 @@ export class FactionFuncs {
         faction.members[characterIdentifier].rank = ownerRank;
         faction.members[characterIdentifier].hasOwnership = true;
 
-        const didUpdate = await FactionHandler.update(faction._id as string, {members: faction.members});
+        const didUpdate = await FactionHandler.update(faction._id as string, { members: faction.members });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -252,7 +256,7 @@ export class FactionFuncs {
         amount = Math.abs(amount);
 
         faction.bank += amount;
-        const didUpdate = await FactionHandler.update(faction._id as string, {bank: faction.bank});
+        const didUpdate = await FactionHandler.update(faction._id as string, { bank: faction.bank });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -278,7 +282,7 @@ export class FactionFuncs {
         }
 
         faction.bank -= amount;
-        const didUpdate = await FactionHandler.update(faction._id as string, {bank: faction.bank});
+        const didUpdate = await FactionHandler.update(faction._id as string, { bank: faction.bank });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -298,7 +302,12 @@ export class FactionFuncs {
      * @return {Promise<boolean>}
      * @memberof FactionFuncs
      */
-    static async setCharacterRank(faction: Faction, characterID: string, newRank: string, isAdmin: boolean = false): Promise<boolean> {
+    static async setCharacterRank(
+        faction: Faction,
+        characterID: string,
+        newRank: string,
+        isAdmin: boolean = false,
+    ): Promise<boolean> {
         const rankIndex = faction.ranks.findIndex((x) => x.uid === newRank);
         if (rankIndex <= -1) {
             return false;
@@ -310,7 +319,7 @@ export class FactionFuncs {
 
         faction.members[characterID].rank = newRank;
 
-        const didUpdate = await FactionHandler.update(faction._id as string, {members: faction.members});
+        const didUpdate = await FactionHandler.update(faction._id as string, { members: faction.members });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -351,11 +360,11 @@ export class FactionFuncs {
 
         await Database.updatePartialData(
             character._id.toString(),
-            {faction: faction._id.toString()},
+            { faction: faction._id.toString() },
             Athena.database.collections.Characters,
         );
 
-        const didUpdate = await FactionHandler.update(faction._id as string, {members: faction.members});
+        const didUpdate = await FactionHandler.update(faction._id as string, { members: faction.members });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -377,7 +386,7 @@ export class FactionFuncs {
         const character = await Database.fetchData<Character>(`_id`, characterID, Collections.Characters);
 
         if (character) {
-            await Database.updatePartialData(character._id.toString(), {faction: null}, Collections.Characters);
+            await Database.updatePartialData(character._id.toString(), { faction: null }, Collections.Characters);
         }
 
         const xTarget = alt.Player.all.find((p) => p && p.id.toString() === characterID);
@@ -388,7 +397,7 @@ export class FactionFuncs {
         }
 
         delete faction.members[characterID];
-        const didUpdate = await FactionHandler.update(faction._id as string, {members: faction.members});
+        const didUpdate = await FactionHandler.update(faction._id as string, { members: faction.members });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -414,7 +423,7 @@ export class FactionFuncs {
         }
 
         faction.ranks[index].name = newName;
-        const didUpdate = await FactionHandler.update(faction._id as string, {ranks: faction.ranks});
+        const didUpdate = await FactionHandler.update(faction._id as string, { ranks: faction.ranks });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -528,7 +537,7 @@ export class FactionFuncs {
             uid: Athena.utility.hash.sha256Random(JSON.stringify(faction.ranks)),
         });
 
-        const didUpdate = await FactionHandler.update(faction._id as string, {ranks: faction.ranks});
+        const didUpdate = await FactionHandler.update(faction._id as string, { ranks: faction.ranks });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -558,7 +567,7 @@ export class FactionFuncs {
         }
 
         faction.ranks[index].rankPermissions = rankPermissions;
-        const didUpdate = await FactionHandler.update(faction._id as string, {ranks: faction.ranks});
+        const didUpdate = await FactionHandler.update(faction._id as string, { ranks: faction.ranks });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -588,7 +597,7 @@ export class FactionFuncs {
         }
 
         faction.ranks[index].weight = weight;
-        const didUpdate = await FactionHandler.update(faction._id as string, {ranks: faction.ranks});
+        const didUpdate = await FactionHandler.update(faction._id as string, { ranks: faction.ranks });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -620,7 +629,7 @@ export class FactionFuncs {
         faction.ranks[fromIndex].weight = withWeight;
         faction.ranks[withIndex].weight = fromWeight;
 
-        const didUpdate = await FactionHandler.update(faction._id as string, {ranks: faction.ranks});
+        const didUpdate = await FactionHandler.update(faction._id as string, { ranks: faction.ranks });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -647,8 +656,8 @@ export class FactionFuncs {
             return false;
         }
 
-        faction.storages.push({id: storageId, name, allowRanks: [], pos});
-        const didUpdate = await FactionHandler.update(faction._id as string, {storages: faction.storages});
+        faction.storages.push({ id: storageId, name, allowRanks: [], pos });
+        const didUpdate = await FactionHandler.update(faction._id as string, { storages: faction.storages });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -683,7 +692,7 @@ export class FactionFuncs {
         }
 
         faction.storages[storageIndex].allowRanks.push(rankUid);
-        const didUpdate = await FactionHandler.update(faction._id as string, {storages: faction.storages});
+        const didUpdate = await FactionHandler.update(faction._id as string, { storages: faction.storages });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -715,7 +724,7 @@ export class FactionFuncs {
         }
 
         faction.storages[storageIndex].allowRanks.splice(existingRankIndex, 1);
-        const didUpdate = await FactionHandler.update(faction._id as string, {storages: faction.storages});
+        const didUpdate = await FactionHandler.update(faction._id as string, { storages: faction.storages });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -744,7 +753,7 @@ export class FactionFuncs {
         }
 
         faction.vehicles.splice(index, 1);
-        const didUpdate = await FactionHandler.update(faction._id as string, {vehicles: faction.vehicles});
+        const didUpdate = await FactionHandler.update(faction._id as string, { vehicles: faction.vehicles });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -781,7 +790,7 @@ export class FactionFuncs {
         }
 
         faction.ranks[rankIndex].vehicles.push(vehicleUid);
-        const didUpdate = await FactionHandler.update(faction._id as string, {ranks: faction.ranks});
+        const didUpdate = await FactionHandler.update(faction._id as string, { ranks: faction.ranks });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -818,7 +827,7 @@ export class FactionFuncs {
         }
 
         faction.ranks[rankIndex].vehicles.splice(vehRankIndex, 1);
-        const didUpdate = await FactionHandler.update(faction._id as string, {ranks: faction.ranks});
+        const didUpdate = await FactionHandler.update(faction._id as string, { ranks: faction.ranks });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -847,7 +856,7 @@ export class FactionFuncs {
         }
 
         faction.actions[rankUid].push(actionUid);
-        const didUpdate = await FactionHandler.update(faction._id as string, {actions: faction.actions});
+        const didUpdate = await FactionHandler.update(faction._id as string, { actions: faction.actions });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -872,7 +881,7 @@ export class FactionFuncs {
         }
 
         faction.actions[rankUid].splice(index, 1);
-        const didUpdate = await FactionHandler.update(faction._id as string, {actions: faction.actions});
+        const didUpdate = await FactionHandler.update(faction._id as string, { actions: faction.actions });
 
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
@@ -898,7 +907,7 @@ export class FactionFuncs {
         }
 
         faction.tickActions.push(actionUid);
-        const didUpdate = await FactionHandler.update(faction._id as string, {tickActions: faction.tickActions});
+        const didUpdate = await FactionHandler.update(faction._id as string, { tickActions: faction.tickActions });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -923,7 +932,7 @@ export class FactionFuncs {
         }
 
         faction.tickActions.splice(index, 1);
-        const didUpdate = await FactionHandler.update(faction._id as string, {tickActions: faction.tickActions});
+        const didUpdate = await FactionHandler.update(faction._id as string, { tickActions: faction.tickActions });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
         }
@@ -983,8 +992,8 @@ export class FactionFuncs {
             faction.settings.parkingSpots = [];
         }
 
-        faction.settings.parkingSpots.push({pos, rot});
-        const didUpdate = await FactionHandler.update(faction._id as string, {settings: faction.settings});
+        faction.settings.parkingSpots.push({ pos, rot });
+        const didUpdate = await FactionHandler.update(faction._id as string, { settings: faction.settings });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
             FactionHandler.updateSettings(faction);
@@ -1009,7 +1018,7 @@ export class FactionFuncs {
         }
 
         faction.settings.parkingSpots.splice(index, 1);
-        const didUpdate = await FactionHandler.update(faction._id as string, {settings: faction.settings});
+        const didUpdate = await FactionHandler.update(faction._id as string, { settings: faction.settings });
         if (didUpdate.status) {
             FactionFuncs.updateMembers(faction);
             FactionHandler.updateSettings(faction);
@@ -1073,7 +1082,7 @@ export class FactionFuncs {
         faction.bank -= Math.abs(price);
 
         // Add the vehicle to the faction vehicles list.
-        faction.vehicles.push({model, id: newVehicle._id.toString()});
+        faction.vehicles.push({ model, id: newVehicle._id.toString() });
 
         const didUpdate = await FactionHandler.update(faction._id as string, {
             vehicles: faction.vehicles,
@@ -1183,8 +1192,7 @@ export class FactionFuncs {
 
         try {
             pointTest.destroy();
-        } catch (err) {
-        }
+        } catch (err) {}
 
         if (spaceOccupied) {
             return false;
@@ -1209,11 +1217,11 @@ export class FactionFuncs {
         alt.emitClient(player, FACTION_EVENTS.PROTOCOL.OPEN, faction, false);
     }
 
-    static async invitePlayer(player: alt.Player, playerId: any, factionId: string|null) {
+    static async invitePlayer(player: alt.Player, playerId: any, factionId: string | null) {
         let faction = null;
         let playerData = null;
-        if(!factionId) {
-             playerData = Athena.document.character.get(player);
+        if (!factionId) {
+            playerData = Athena.document.character.get(player);
             faction = FactionHandler.get(playerData.faction);
         } else {
             faction = FactionHandler.get(factionId);
@@ -1259,8 +1267,7 @@ export class FactionFuncs {
                 accept: FACTION_EVENTS.PROTOCOL.ACCEPT_INVITE,
                 decline: FACTION_EVENTS.PROTOCOL.DECLINE_INVITE,
             },
-            data: {
-            }
+            data: {},
         });
 
         Athena.player.emit.message(player, `${target.name} was invited to the faction.`);

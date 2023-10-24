@@ -12,8 +12,8 @@
 
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from 'vue';
-import { Faction } from '../../athena-plugin-factions/shared/interfaces.js';
-import { FactionParser } from '../../athena-plugin-factions/webview/utility/factionParser.js';
+import { Faction } from '../../plugin-factions/shared/interfaces.js';
+import { FactionParser } from '../../plugin-factions/webview/utility/factionParser.js';
 import { FactionRank } from '../shared/extensions.js';
 import { F_PAYCHECK_VIEW_EVENTS } from '../shared/events.js';
 import { IVector3 } from 'alt-shared';

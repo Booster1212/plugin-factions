@@ -4,7 +4,7 @@ import { FactionActions } from './src/actions.js';
 import { FactionCommands } from './src/commands.js';
 import { FactionFuncs } from './src/funcs.js';
 import { FactionHandler } from './src/handler.js';
-import {FACTION_EVENTS} from "@AthenaPlugins//athena-plugin-factions/shared/factionEvents.js";
+import { FACTION_EVENTS } from '@AthenaPlugins/plugin-factions/shared/factionEvents.js';
 
 const PLUGIN_NAME = 'Athena Factions';
 

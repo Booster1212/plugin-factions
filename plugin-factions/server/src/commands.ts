@@ -1,8 +1,7 @@
 import * as alt from 'alt-server';
 import * as Athena from '@AthenaServer/api/index.js';
 import { FactionHandler } from './handler.js';
-import { AdminCommandPermissions } from '@AthenaPlugins/athena-plugin-factions/shared/config.js';
-
+import { AdminCommandPermissions } from '@AthenaPlugins/plugin-factions/shared/config.js';
 
 /**
  * It creates a new faction.

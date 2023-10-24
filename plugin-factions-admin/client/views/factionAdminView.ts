@@ -1,7 +1,7 @@
 import * as alt from 'alt-client';
 import * as AthenaClient from '@AthenaClient/api/index.js';
 import { FACTION_ADMIN_EVENTS } from '../../shared/factionAdminEvents.js';
-import { Faction } from '@AthenaPlugins/athena-plugin-factions/shared/interfaces.js';
+import { Faction } from '@AthenaPlugins/plugin-factions/shared/interfaces.js';
 
 const onOpen: Array<(view: alt.WebView, factions: Faction[]) => void> = [];
 const onClose: Array<(view: alt.WebView, factions: Faction[]) => void> = [];
@@ -49,11 +49,10 @@ class InternalFunctions {
 
         alt.toggleGameControls(false);
         alt.Player.local.isMenuOpen = true;
-
     }
 
     static refresh(_factions: Faction[]) {
-        console.log('refresh emited!')
+        console.log('refresh emited!');
         if (!isOpen) {
             return;
         }
@@ -62,7 +61,7 @@ class InternalFunctions {
             return;
         }
 
-        console.log("refreshing!");
+        console.log('refreshing!');
         factions = _factions;
         InternalFunctions.ready();
     }
@@ -92,10 +91,7 @@ class InternalFunctions {
 
     static async ready() {
         const view = await AthenaClient.webview.get();
-        view.emit(
-            FACTION_ADMIN_EVENTS.WEBVIEW.UPDATE_DATA,
-            factions
-        );
+        view.emit(FACTION_ADMIN_EVENTS.WEBVIEW.UPDATE_DATA, factions);
     }
 
     static action(functionName: string, ...args: any[]) {

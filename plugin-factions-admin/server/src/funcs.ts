@@ -1,13 +1,13 @@
-import alt from "alt-server";
-import * as Athena from "@AthenaServer/api/index.js";
-import {FactionHandler} from "@AthenaPlugins/athena-plugin-factions/server/src/handler.js";
-import {FACTION_ADMIN_EVENTS} from "@AthenaPlugins/athena-plugin-factions-admin/shared/factionAdminEvents.js";
-import {FACTION_EVENTS} from "@AthenaPlugins/athena-plugin-factions/shared/factionEvents.js";
-import { AdminCommandPermissions } from "@AthenaPlugins/athena-plugin-factions/shared/config.js";
+import alt from 'alt-server';
+import * as Athena from '@AthenaServer/api/index.js';
+import { FactionHandler } from '@AthenaPlugins/plugin-factions/server/src/handler.js';
+import { FACTION_ADMIN_EVENTS } from '@AthenaPlugins/plugin-factions-admin/shared/factionAdminEvents.js';
+import { FACTION_EVENTS } from '@AthenaPlugins/plugin-factions/shared/factionEvents.js';
+import { AdminCommandPermissions } from '@AthenaPlugins/plugin-factions/shared/config.js';
 
 export class FactionAdminFuncs {
     static async init() {
-        alt.onClient(FACTION_ADMIN_EVENTS.PROTOCOL.INVOKE, this.invokeFunction)
+        alt.onClient(FACTION_ADMIN_EVENTS.PROTOCOL.INVOKE, this.invokeFunction);
     }
 
     /**
@@ -41,13 +41,13 @@ export class FactionAdminFuncs {
         alt.emitClient(player, FACTION_EVENTS.PROTOCOL.OPEN, faction, true);
     }
 
-    static async deleteFaction (player: alt.Player, factionId: string){
+    static async deleteFaction(player: alt.Player, factionId: string) {
         await FactionHandler.remove(factionId);
 
         alt.emitClient(player, FACTION_ADMIN_EVENTS.PROTOCOL.REFRESH, FactionHandler.getAllFactions());
     }
 
-    static async createFaction (player: alt.Player, name: string) {
+    static async createFaction(player: alt.Player, name: string) {
         const result = await FactionHandler.add({
             bank: 0,
             canDisband: true,
@@ -64,8 +64,8 @@ export class FactionAdminFuncs {
     }
 
     static async invokeFunction(player: alt.Player, functionName: string, ...args: any) {
-        if(!FactionAdminFuncs.isAdmin(player)) {
-            console.log("Player is not an admin!")
+        if (!FactionAdminFuncs.isAdmin(player)) {
+            console.log('Player is not an admin!');
             return;
         }
 

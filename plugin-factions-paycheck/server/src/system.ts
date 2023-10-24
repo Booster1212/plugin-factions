@@ -2,9 +2,9 @@ import * as alt from 'alt-server';
 import * as Athena from '@AthenaServer/api/index.js';
 
 import { CurrencyTypes } from '../../../../shared/enums/currency.js';
-import { FactionFuncs } from '../../../athena-plugin-factions/server/src/funcs.js';
-import { FactionHandler } from '../../../athena-plugin-factions/server/src/handler.js';
-import { FactionPlayerFuncs } from '../../../athena-plugin-factions/server/src/playerFuncs.js';
+import { FactionFuncs } from '../../../plugin-factions/server/src/funcs.js';
+import { FactionHandler } from '../../../plugin-factions/server/src/handler.js';
+import { FactionPlayerFuncs } from '../../../plugin-factions/server/src/playerFuncs.js';
 import { F_PAYCHECK_EVENTS } from '../../shared/events.js';
 import { FactionCharacter, FactionRank } from '../../shared/extensions.js';
 

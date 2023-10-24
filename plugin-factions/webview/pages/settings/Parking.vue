@@ -33,12 +33,11 @@
 </template>
 
 <script lang="ts">
+import { FACTION_EVENTS } from '@AthenaPlugins/plugin-factions/shared/factionEvents.js';
+import { FACTION_PFUNC } from '@AthenaPlugins/plugin-factions/shared/funcNames.js';
+import { Faction } from '@AthenaPlugins/plugin-factions/shared/interfaces.js';
+import { Vector3 } from 'alt-shared';
 import { defineComponent, defineAsyncComponent } from 'vue';
-import { Vector3 } from '../../../../gp-athena-utils/shared/interfaces/vector';
-import { Faction } from '../../../shared/interfaces';
-import { distance } from '../../../../gp-athena-utils/shared/utility/vector';
-import { FACTION_EVENTS } from '../../../shared/factionEvents';
-import { FACTION_PFUNC } from '../../../shared/funcNames';
 
 const ComponentName = 'Parking';
 export default defineComponent({
@@ -91,7 +90,13 @@ export default defineComponent({
                 return;
             }
 
-            alt.emit(FACTION_EVENTS.WEBVIEW.ACTION, FACTION_PFUNC.ADD_PARKING_SPOT, this.pos, this.rot, this.faction._id);
+            alt.emit(
+                FACTION_EVENTS.WEBVIEW.ACTION,
+                FACTION_PFUNC.ADD_PARKING_SPOT,
+                this.pos,
+                this.rot,
+                this.faction._id,
+            );
         },
         removeLocation(index: number) {
             if (!('alt' in window)) {

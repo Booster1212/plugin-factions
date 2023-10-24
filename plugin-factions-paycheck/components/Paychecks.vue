@@ -46,11 +46,11 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from 'vue';
 
-import { Faction } from '../../athena-plugin-factions/shared/interfaces.js';
-import { FactionParser } from '../../athena-plugin-factions/webview/utility/factionParser.js';
+import { Faction } from '../../plugin-factions/shared/interfaces.js';
+import { FactionParser } from '../../plugin-factions/webview/utility/factionParser.js';
 import { F_PAYCHECK_VIEW_EVENTS } from '../shared/events.js';
 import { FactionRank } from '../shared/extensions.js';
-import { Vector3 } from 'alt-shared';
+import { IVector3 } from 'alt-shared';
 
 const ComponentName = 'Paychecks';
 export default defineComponent({
@@ -58,9 +58,9 @@ export default defineComponent({
     props: {
         faction: Object as () => Faction,
         character: String,
-        pos: Object as () => Vector3,
-        rot: Object as () => Vector3,
-        isAdmin: Boolean
+        pos: Object as () => IVector3,
+        rot: Object as () => IVector3,
+        isAdmin: Boolean,
     },
     components: {
         Button: defineAsyncComponent(() => import('@components/Button.vue')),

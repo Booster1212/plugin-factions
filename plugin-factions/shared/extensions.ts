@@ -1,4 +1,4 @@
-import * as interfaces from '../../athena-plugin-factions/shared/interfaces.js';
+import * as interfaces from '../../plugin-factions/shared/interfaces.js';
 
 export interface FactionRank extends Partial<interfaces.FactionRank> {
     paycheckTest?: number;

@@ -1,4 +1,4 @@
-import { Faction } from '../../shared/interfaces';
+import { Faction } from '../../shared/interfaces.js';
 
 export const ExampleFactionData: Faction = {
     name: 'Los Santos Police Department',

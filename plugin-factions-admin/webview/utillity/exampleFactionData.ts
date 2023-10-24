@@ -1,19 +1,19 @@
-import {Faction} from "@AthenaPlugins//athena-plugin-factions/shared/interfaces.js";
+import { Faction } from '@AthenaPlugins/plugin-factions/shared/interfaces.js';
 
-export const ExampleFactionData : Faction[] = [
+export const ExampleFactionData: Faction[] = [
     {
         _id: 'a',
         bank: 0,
         settings: {},
         canDisband: true,
-        members: { },
+        members: {},
         name: 'LSPD',
         type: 'state',
         vehicles: [],
-        ranks: [        ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'b',
@@ -24,24 +24,24 @@ export const ExampleFactionData : Faction[] = [
         name: 'LSMD',
         type: 'state',
         vehicles: [],
-        ranks: [ ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'a',
         bank: 0,
         settings: {},
         canDisband: true,
-        members: { },
+        members: {},
         name: 'LSPD',
         type: 'state',
         vehicles: [],
-        ranks: [        ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'b',
@@ -52,24 +52,24 @@ export const ExampleFactionData : Faction[] = [
         name: 'LSMD',
         type: 'state',
         vehicles: [],
-        ranks: [ ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'a',
         bank: 0,
         settings: {},
         canDisband: true,
-        members: { },
+        members: {},
         name: 'LSPD',
         type: 'state',
         vehicles: [],
-        ranks: [        ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'b',
@@ -80,24 +80,24 @@ export const ExampleFactionData : Faction[] = [
         name: 'LSMD',
         type: 'state',
         vehicles: [],
-        ranks: [ ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'a',
         bank: 0,
         settings: {},
         canDisband: true,
-        members: { },
+        members: {},
         name: 'LSPD',
         type: 'state',
         vehicles: [],
-        ranks: [        ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'b',
@@ -108,24 +108,24 @@ export const ExampleFactionData : Faction[] = [
         name: 'LSMD',
         type: 'state',
         vehicles: [],
-        ranks: [ ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'a',
         bank: 0,
         settings: {},
         canDisband: true,
-        members: { },
+        members: {},
         name: 'LSPD',
         type: 'state',
         vehicles: [],
-        ranks: [        ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'b',
@@ -136,24 +136,24 @@ export const ExampleFactionData : Faction[] = [
         name: 'LSMD',
         type: 'state',
         vehicles: [],
-        ranks: [ ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'a',
         bank: 0,
         settings: {},
         canDisband: true,
-        members: { },
+        members: {},
         name: 'LSPD',
         type: 'state',
         vehicles: [],
-        ranks: [        ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
+        actions: {},
     },
     {
         _id: 'b',
@@ -164,9 +164,9 @@ export const ExampleFactionData : Faction[] = [
         name: 'LSMD',
         type: 'state',
         vehicles: [],
-        ranks: [ ],
+        ranks: [],
         storages: [],
         tickActions: [],
-        actions: {}
-    }
-]
+        actions: {},
+    },
+];

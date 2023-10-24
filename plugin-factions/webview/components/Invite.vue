@@ -21,8 +21,8 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from 'vue';
 import WebViewEvents from '@ViewUtility/webViewEvents.js';
-import {FACTION_EVENTS} from "@AthenaPlugins/athena-plugin-factions/shared/factionEvents.js";
-import {FACTION_PFUNC} from "@AthenaPlugins/athena-plugin-factions/shared/funcNames.js";
+import { FACTION_EVENTS } from '@AthenaPlugins/plugin-factions/shared/factionEvents.js';
+import { FACTION_PFUNC } from '@AthenaPlugins/plugin-factions/shared/funcNames.js';
 import { Faction } from '../../shared/interfaces.js';
 
 type PlayerList = Array<{ id: number; name: string }>;
@@ -35,12 +35,12 @@ export default defineComponent({
     },
     data() {
         return {
-            players: [] as PlayerList
+            players: [] as PlayerList,
         };
     },
     props: {
-      faction: Object as () => Faction,
-      isAdmin: Boolean
+        faction: Object as () => Faction,
+        isAdmin: Boolean,
     },
     methods: {
         adjust(value: number) {
@@ -54,8 +54,8 @@ export default defineComponent({
             }
         },
         finish(id: number) {
-          alt.emit(FACTION_EVENTS.WEBVIEW.ACTION, FACTION_PFUNC.INVITE, id, this.faction._id);
-          this.$emit('cancel-invite');
+            alt.emit(FACTION_EVENTS.WEBVIEW.ACTION, FACTION_PFUNC.INVITE, id, this.faction._id);
+            this.$emit('cancel-invite');
         },
         setClosestPlayers(players: PlayerList) {
             this.players = players;
